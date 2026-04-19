@@ -1,4 +1,6 @@
 ## CPP Module 04
+
+![Logo](Img/cpp04.png)
 ***
 
 To enter the world of this module, we need first to know & understand the overall types of polymorphism:
