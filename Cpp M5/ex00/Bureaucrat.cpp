@@ -1,12 +1,12 @@
 #include "Bureaucrat.hpp"
 
-// constructors & destructors
+//// constructors & destructors ////
 Bureaucrat::Bureaucrat(){
     std::cout << "Burreaucrat Default Constructor Called..." << std::endl;
     Bureaucrat("BureauCratic", 11);
 }
 
-Bureaucrat::Bureaucrat(std::string newName, unsigned int newGrade) : name(newName){
+Bureaucrat::Bureaucrat(std::string newName, int newGrade) : name(newName){
     std::cout << "Burreaucrat Name/Grade Constructor Called..." << std::endl;
     this->grade = newGrade;
 }
@@ -36,6 +36,28 @@ unsigned int Bureaucrat::getGrade()const{
     return (this->grade);
 }
 
-void Bureaucrat::setGrade(unsigned int grade){
+void Bureaucrat::setGrade(int grade){
     this->grade = grade;
+}
+
+//// Incre/Decrement ////
+void Bureaucrat::gradeIncrement(int inc){
+    this->grade -= inc;
+}
+
+void Bureaucrat::gradeDecrement(int dec){
+    this->grade += dec;
+}
+
+//// Exception's Functions ////
+void Bureaucrat::GradeTooHighException(int value){
+    if (value < 1){
+        throw std::invalid_argument(std::to_string(value) + " is too high to be given...");
+    }
+}
+
+void Bureaucrat::GradeTooLowException(int value){
+    if (value > 150){
+        throw std::invalid_argument(std::to_string(value) + " is too low to be given...");
+    }
 }

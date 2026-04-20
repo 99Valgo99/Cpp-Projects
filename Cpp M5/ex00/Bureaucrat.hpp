@@ -8,11 +8,11 @@ class Bureaucrat
 {
     private:
         const std::string name;
-        unsigned int grade;
+        int grade;
     public:
         // constructors & destructor
         Bureaucrat();
-        Bureaucrat(std::string newName, unsigned int newGrade);
+        Bureaucrat(std::string newName, int newGrade);
         Bureaucrat(const Bureaucrat& other);
         Bureaucrat& operator=(const Bureaucrat& other);
         ~Bureaucrat();
@@ -20,9 +20,14 @@ class Bureaucrat
         std::string getName() const;
         unsigned int getGrade() const;
         // Setters
-        void setGrade(unsigned int grade);
-        // exception's functions
+        void setGrade(int grade);
+        // Incre/Decre
+        void gradeIncrement(int inc);
+        void gradeDecrement(int dec);
 
+        // exception's functions
+        void GradeTooHighException(int value);
+        void GradeTooLowException(int value);
 };
 
 #endif
