@@ -8,6 +8,14 @@ Bureaucrat::Bureaucrat(){
 
 Bureaucrat::Bureaucrat(std::string newName, int newGrade) : name(newName){
     std::cout << "Burreaucrat Name/Grade Constructor Called..." << std::endl;
+    try {
+        GradeTooHighException(newGrade);
+        GradeTooLowException(newGrade);
+        std::cout << "Grade Succesfully Given..." << std::endl;
+    }
+    catch (const std::invalid_argument& e) {
+        
+    }
     this->grade = newGrade;
 }
 
