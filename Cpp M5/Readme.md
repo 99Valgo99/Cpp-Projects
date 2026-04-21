@@ -64,3 +64,31 @@ The **ABI** is the "legal agreement" on how functions call each other, for excep
 
 * Pass 1 (Search): The **ABI** uses the IP and Unwind Tables to find a matching ``catch``
 * Pass 2 (Cleanup): The **ABI** uses the SP to physically pop frames and run destructors.
+***
+
+### Practice Makes Perfect
+
+In ``C++``, the standard and known way to use the exceptions in the case of our exersices, is to define them as **Inner Classes** inside of the main class in our cass:
+
+* ***Bureaucrat*** (Outer Class)
+    
+    * ***GradeTooHighException (Inner Class)***
+
+    * ***GradeTooLowException (Inner Class)***
+
+Both **Inner Classes** inherits from ``std::exception``.
+
+When we use ``catch (std::execption & e)``, we are holding a net, any object that is a ``std::exception`` (via **Inheritance**) will fall into that net.
+
+Since ``GradeTooHigh/LowException`` inherits from ``std::exception``, it can "wear the mask" of its parent
+
+The ``std::exception`` has **Virtual Table Pointer** present due to having a function called ``what()``, we have to override this function in our **Inner Class** in order to display our custom error and message.
+
+Therefore when the code hits ``catch (std::exception &e)``, the compier does not know which exception was thrown (it could be ours, a ``std::bad_alloc`` or a ``std::runtime_error``).
+
+Using **Dynamic Dispatch** at runtime, the compiler looks at object ``e``, follows the **Vptr** to the **Vtable** of the actual class that was thrown, it finds the address of ``what()`` function specifically for that class (our overriden function of ``what``).
+
+#### Why should we use a Reference (& e) ?
+
+If we catch the exception without the ``&`` Reference symbol, a memory of (8 byte) will be allocated for ``std::exception``, when we throw our custom exception ``GradeTooHigh/LowException``, C++ tires to "copy" it into that 8 byte-box, which cannot fit, so it simply chops off (**Slices**) everything that doesn't fit, including the custom ``what()`` function, the object is "Downgraded" or "demoted" to a plain old ``std::exception``, Resulting in **Object Slicing**.
+***

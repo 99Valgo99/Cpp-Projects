@@ -1,9 +1,8 @@
 #include "Bureaucrat.hpp"
 
 //// constructors & destructors ////
-Bureaucrat::Bureaucrat(){
+Bureaucrat::Bureaucrat() : name("Bureaucratic"), grade(11) {
     std::cout << "Burreaucrat Default Constructor Called..." << std::endl;
-    Bureaucrat("BureauCratic", 11);
 }
 
 Bureaucrat::Bureaucrat(std::string newName, int newGrade) : name(newName){
