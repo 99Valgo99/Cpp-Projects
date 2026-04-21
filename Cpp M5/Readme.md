@@ -92,3 +92,30 @@ Using **Dynamic Dispatch** at runtime, the compiler looks at object ``e``, follo
 
 If we catch the exception without the ``&`` Reference symbol, a memory of (8 byte) will be allocated for ``std::exception``, when we throw our custom exception ``GradeTooHigh/LowException``, C++ tires to "copy" it into that 8 byte-box, which cannot fit, so it simply chops off (**Slices**) everything that doesn't fit, including the custom ``what()`` function, the object is "Downgraded" or "demoted" to a plain old ``std::exception``, Resulting in **Object Slicing**.
 ***
+
+### Usage
+
+We make the two classes inherit from ``std::exception``:
+
+```
+class Classes : public std::exception {}
+```
+
+Then we override the ``what()`` function to our implementation, instead of the one from ``std::exception``:
+
+```
+virtual const char* what() const throw();
+```
+
+* ``virtual``: This is the keyword that turn the **Dynamic Dispatch** On.
+* ``const char*``: the function returns a pointer to a string, this is the standard way C++ exceptions report their error messages.
+* ``const``: This guarantees that calling ``what()`` won't change the exception object itself.
+* ``throw()``: This is an **exception specification**, it's a promise that ``throw`` function will not throw an exception of its own.
+
+```
+const char* Class::ClassExepction::what() const throw {
+    return "Testing Exceptions...";
+}
+```
+
+***Note***: Since we are returning a **string literal**, it gets stored in "Read-Only" memory area of the program (**Data Segment**), which means if the program is crashing or the stack is being "unwound", this message is safely destroyed, with no memory allocation left overs.

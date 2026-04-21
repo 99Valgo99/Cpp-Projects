@@ -10,24 +10,25 @@ class Bureaucrat
         const std::string name;
         int grade;
     public:
-        // constructors & destructor
+        // constructors & destructor //
         Bureaucrat();
         Bureaucrat(std::string newName, int newGrade);
         Bureaucrat(const Bureaucrat& other);
         Bureaucrat& operator=(const Bureaucrat& other);
         ~Bureaucrat();
-        // Getters
+        // setters
         std::string getName() const;
         unsigned int getGrade() const;
-        // Setters
+        // setters //
         void setGrade(int grade);
-        // Incre/Decre
+        // sncre/secre //
         void gradeIncrement(int inc);
         void gradeDecrement(int dec);
 
-        // exception's functions
-        void GradeTooHighException(int value);
-        void GradeTooLowException(int value);
+        // exception's classes //
+        class GradeTooHighException : public std::exception {
+
+        }
 };
 
 #endif
