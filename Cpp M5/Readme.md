@@ -112,6 +112,17 @@ virtual const char* what() const throw();
 * ``const``: This guarantees that calling ``what()`` won't change the exception object itself.
 * ``throw()``: This is an **exception specification**, it's a promise that ``throw`` function will not throw an exception of its own.
 
+Example from Gemini, as why the ``const`` & ``throw()`` keywords are important:
+
+```
+const char* what() const throw() {
+    this->grade = 10; // ERROR: 'const' forbids this!
+    throw std::runtime_error("oops"); // TERMINATE: 'throw()' forbids this!
+    return "Success";
+}
+```
+How the implementation of the custom ``what()`` function goes:
+
 ```
 const char* Class::ClassExepction::what() const throw {
     return "Testing Exceptions...";
