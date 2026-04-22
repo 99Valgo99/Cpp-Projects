@@ -8,12 +8,11 @@ Bureaucrat::Bureaucrat() : name("Bureaucratic"), grade(11) {
 Bureaucrat::Bureaucrat(std::string newName, int newGrade) : name(newName){
     std::cout << "Burreaucrat Name/Grade Constructor Called..." << std::endl;
     try {
-        GradeTooHighException(newGrade);
-        GradeTooLowException(newGrade);
+        if (newGrade > 150)
+            throw GradeTooLowException();
+        else (newGrade < 1)
+            throw GradeTooLowException();
         std::cout << "Grade Succesfully Given..." << std::endl;
-    }
-    catch (const std::invalid_argument& e) {
-        
     }
     this->grade = newGrade;
 }
@@ -57,14 +56,10 @@ void Bureaucrat::gradeDecrement(int dec){
 }
 
 //// Exception's Functions ////
-void Bureaucrat::GradeTooHighException(int value){
-    if (value < 1){
-        throw std::invalid_argument(std::to_string(value) + " is too high to be given...");
-    }
+const char* Bureaucrat::GradeTooHighException:: what() const throw() {
+    return ("Grade is too high to be set...");
 }
 
-void Bureaucrat::GradeTooLowException(int value){
-    if (value > 150){
-        throw std::invalid_argument(std::to_string(value) + " is too low to be given...");
-    }
+const char* Bureaucrat::GradeTooLowException:: what() const throw() {
+    return ("Grade is too low to be set...");
 }

@@ -27,8 +27,13 @@ class Bureaucrat
 
         // exception's classes //
         class GradeTooHighException : public std::exception {
-
-        }
+            virtual const char* what() const throw();
+        };
+        class GradeTooLowException : public std::exception {
+            virtual const char* what() const throw();
+        };
 };
+
+std::ostream& operator<<(std::ostream &out, const Fixed& input);
 
 #endif
