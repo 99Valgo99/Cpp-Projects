@@ -18,12 +18,12 @@ class Bureaucrat
         ~Bureaucrat();
         // setters
         std::string getName() const;
-        unsigned int getGrade() const;
+        int getGrade() const;
         // setters //
         void setGrade(int grade);
         // sncre/secre //
-        void gradeIncrement(int inc);
-        void gradeDecrement(int dec);
+        void gradeIncrement();
+        void gradeDecrement();
 
         // exception's classes //
         class GradeTooHighException : public std::exception {
@@ -34,6 +34,6 @@ class Bureaucrat
         };
 };
 
-std::ostream& operator<<(std::ostream &out, const Fixed& input);
+std::ostream& operator<<(std::ostream &out, const Bureaucrat& input);
 
 #endif

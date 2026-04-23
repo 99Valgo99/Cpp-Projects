@@ -38,7 +38,7 @@ std::string Bureaucrat::getName() const{
     return (this->name);
 }
 
-unsigned int Bureaucrat::getGrade()const{
+int Bureaucrat::getGrade()const{
     return (this->grade);
 }
 
@@ -47,12 +47,12 @@ void Bureaucrat::setGrade(int grade){
 }
 
 //// Incre/Decrement ////
-void Bureaucrat::gradeIncrement(int inc){
-    this->grade -= inc;
+void Bureaucrat::gradeIncrement(){
+    this->grade -= 1;
 }
 
-void Bureaucrat::gradeDecrement(int dec){
-    this->grade += dec;
+void Bureaucrat::gradeDecrement(){
+    this->grade += 1;
 }
 
 //// Exception's Functions ////
