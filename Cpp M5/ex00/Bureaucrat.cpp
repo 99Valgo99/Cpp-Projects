@@ -7,13 +7,9 @@ Bureaucrat::Bureaucrat() : name("Bureaucratic"), grade(11) {
 
 Bureaucrat::Bureaucrat(std::string newName, int newGrade) : name(newName){
     std::cout << "Burreaucrat Name/Grade Constructor Called..." << std::endl;
-    try {
-        if (newGrade > 150)
-            throw GradeTooLowException();
-        else (newGrade < 1)
-            throw GradeTooLowException();
-        std::cout << "Grade Succesfully Given..." << std::endl;
-    }
+    if (newGrade > 150) throw GradeTooLowException();
+    else if (newGrade < 1) throw GradeTooLowException();
+    std::cout << "Grade Succesfully Given..." << std::endl;
     this->grade = newGrade;
 }
 
@@ -62,4 +58,9 @@ const char* Bureaucrat::GradeTooHighException:: what() const throw() {
 
 const char* Bureaucrat::GradeTooLowException:: what() const throw() {
     return ("Grade is too low to be set...");
+}
+
+//// insertion operator ////
+std::ostream& operator<<(std::ostream &out, const Bureaucrat& input){
+    return (out << input);
 }
