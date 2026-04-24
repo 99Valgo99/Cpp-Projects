@@ -19,7 +19,7 @@ class Bureaucrat
         // setters
         std::string getName() const;
         int getGrade() const;
-        // sncre/secre //
+        // incre/decre //
         void gradeIncrement();
         void gradeDecrement();
 
