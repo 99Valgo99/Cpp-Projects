@@ -16,7 +16,7 @@ class Bureaucrat
         Bureaucrat(const Bureaucrat& other);
         Bureaucrat& operator=(const Bureaucrat& other);
         ~Bureaucrat();
-        // setters
+        // getters
         std::string getName() const;
         int getGrade() const;
         // incre/decre //
@@ -30,6 +30,8 @@ class Bureaucrat
         class GradeTooLowException : public std::exception {
             virtual const char* what() const throw();
         };
+        // Form Tools //
+        void signForm();
 };
 
 std::ostream& operator<<(std::ostream &out, const Bureaucrat& input);
