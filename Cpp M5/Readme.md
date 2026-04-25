@@ -135,3 +135,38 @@ const char* Class::ClassExepction::what() const throw {
 
 * We should not ``catch`` an exception after ``throwing`` it inside of a **Constructor**, this will result on an undefined behavior, if we throw an exception and catch it inside of the constructor, we might print ``Error`` yet, the execution continues, making C++ runtime thinking that the object is now valide and constructed, therefore calling something like ``bureaucrat.gradeIncrement()`` may result in a crash or unexpected behavior, since the object exists in memeory but the grade that's built upon the validation of the ``exception`` contains unintialized garbage.
 ***
+
+### The Form Header & Bureaucrat Header ErrorLoop
+
+The issue we will face in this section, mainly in **Ex01** is pointing toward the concepts of **Circular Dependencies** and **Forward Declarations**, beside that this exercise is all about logic handling and raw coding of **Exceptions**.
+
+In this exercise, we encounter this issue:
+
+* ***The Bureaucrat*** needs to know about the **Form** to have a function called ``signForm(Form &form)``.
+* ***The Form*** needs to know about the **Bureaucrat** to have a function called ``beSigned(const Bureaucrat &buro)``.
+
+If you try to ``#include`` each header into the other, we face this issue:
+
+* 1) The compiler starts with the ``main.cpp``, it sees ``#include "Bureaucrat.hpp``, the preprocessor opens it & defines the macro ``BUREAUCRAT_HPP``, inside of it, it sees ``#include "Form.hpp"``, it pauses reading the ``Bureaucrat.hpp`` and jump to ``Form.hpp``.
+
+* 2) The compiler now defines ``FORM_HPP``, looks inside it and sees ``#include "Bureaucrat.hpp``, it tries to jump back to it, it looks at it and finds the **Header Guard** ``#ifndef BUREAUCRAT_HPP``, therefore it skips it.
+
+* 3) The preprocessor returns to ``Form.hpp`` and continues reading, it finds ``void beSigned(const Bureaucrat& Buro)`` and **crashes** since it does not know about the Bureaucrat class because it stopped at the top of the header file of ``Bureaucrat.hpp`` when it encountered ``#include Form.hpp``.
+
+#### To solve this problem, we use ***Forward Declaration***:
+
+When we replace the ``#include`` with only ``class Bureacrat;``, we change the compiler's requirement for "Full knowledge" to "Basic Awareness".
+
+* A Definition via ``#include`` tells the compiler the **Size** and **Members**, the compiler needs this to create an object on the **Stack** because it must know excatly how many bytes to reserve.
+* A Declaration via ``class X;`` only tells the compiler the **Name**.
+
+And because the size of a reference is constant (8 Bytes), the compiler doesn't need to know what's inside of the ``Bureaucrat`` class to compile a function signature like ``void beSigned(Bureaucrat& Buro)``, it just reserves the 8 bytes for an address, and trust the promise that a class with that specifed name exists somewhere else.
+
+#### The Final Piece
+
+When the compiler finishes turning the ``.cpp`` files into object files ``.o``, it leaves notes for the **Linker**.
+
+* In ``Form.o``, it says; There is a function named ``beSigned``, i don't know where it is, but i know it takes a reference.
+* In ``Bureaucrat.o``, it says; I have the actual code for ``Bureaucrat`` and its methods.
+
+The **Linker** then uses those instructions to actually link the address of the **Bureaucrat** into the holes left from the **Form** code.
