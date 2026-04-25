@@ -1,8 +1,8 @@
 CC = c++
 CFLAG = -Wall -Wextra -Werror -std=c++98
-SRC = main.cpp Bureaucrat.cpp
-HEADER = Bureaucrat.hpp
-NAME =	Bureaucrat
+SRC = main.cpp Bureaucrat.cpp Form.cpp
+HEADER = Bureaucrat.hpp Form.hpp
+NAME =	BureaucraticForm
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
@@ -12,8 +12,6 @@ $(NAME): $(OBJ)
 
 %.o: %.cpp $(HEADER)
 	$(CC) $(CFLAG) -c $< -o $@
-# asm:
-#	$(CXX) $(CXXFLAGS) -S -fverbose-asm Bureaucrat.cpp -o Bureaucrat.s
 
 clean:
 	rm -rf $(OBJ)
