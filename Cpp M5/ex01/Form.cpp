@@ -1,7 +1,7 @@
 # include "Form.hpp"
 
 // constructors & destructors //
-Form::Form() : name("Form"), marked(false), gradeSign(1), gradeExec(1) {
+Form::Form() : name("Form"), marked(FALSE), gradeSign(1), gradeExec(1) {
     std::cout << "Form Default Constructor Called..." << std::endl;
 }
 
@@ -33,4 +33,40 @@ Form& Form::operator=(const Form& other) {
     return *this;
 }
 
-// Getters
+// getters
+bool Form::getMarked() const {
+    return (marked);
+}
+
+int Form::getGradeSign() const {
+    return (gradeSign);
+}
+
+int Form::getGradeExec() const {
+    return (gradeExec);
+}
+
+std::string Form::getName() const {
+    return (name);
+}
+
+// form's exception's tools //
+const char* Form::GradeTooHighException:: what() const throw() {
+    return ("Form's Grade Is Too High...");
+}
+
+const char* Form::GradeTooLowException:: what() const throw() {
+    return ("Form's Grade Is Too Low...");
+}
+
+// form tools //
+void Form::beSigned(const Bureaucrat &obj) {
+    if (obj.getGrade() <= gradeSign) marked = TRUE;
+    else if (obj.getGrade() > gradeSign) throw GradeTooLowException();
+}
+
+//// insertion operator ////
+std::ostream& operator<<(std::ostream &out, const Form& input) {
+    out << "Form Name: " << input.getName() << ", Marked As " << input.getMarked() << ", Its Grade To Sign: " << input.getGradeSign() << ", Its Grade To Execute: " << input.getGradeExec();
+    return (out);
+}

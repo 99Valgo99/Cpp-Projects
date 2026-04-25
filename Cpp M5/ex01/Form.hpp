@@ -3,6 +3,9 @@
 
 # include "Bureaucrat.hpp"
 
+# define TRUE 1
+# define FALSE 0
+
 class Form
 {
     private:
