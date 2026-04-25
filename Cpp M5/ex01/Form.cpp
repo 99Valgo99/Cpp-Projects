@@ -67,6 +67,9 @@ void Form::beSigned(const Bureaucrat &obj) {
 
 //// insertion operator ////
 std::ostream& operator<<(std::ostream &out, const Form& input) {
-    out << "Form Name: " << input.getName() << ", Marked As " << input.getMarked() << ", Its Grade To Sign: " << input.getGradeSign() << ", Its Grade To Execute: " << input.getGradeExec();
+    
+    out << "Form Name: " << input.getName() << ", Marked As " \
+    << input.getMarked() << ", Its Grade To Sign: " \
+    << input.getGradeSign() << ", Its Grade To Execute: " << input.getGradeExec();
     return (out);
 }
