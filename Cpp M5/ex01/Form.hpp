@@ -16,7 +16,7 @@ class Form
     public:
     // constructors & destructor //
     Form();
-    Form(std::string newName, int newGradeSign, int newGradeExec, bool isMarked);
+    Form(std::string newName, int newGradeSign, int newGradeExec);
     Form(const Form& other);
     Form& operator=(const Form& other);
     ~Form();
@@ -33,7 +33,6 @@ class Form
     class GradeTooLowException : public std::exception {
         virtual const char* what() const throw();
     };
-    
     // Form Tools //
     void beSigned(const Bureaucrat &obj);
 };

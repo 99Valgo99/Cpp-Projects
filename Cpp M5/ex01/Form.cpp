@@ -5,9 +5,8 @@ Form::Form() : name("Form"), marked(FALSE), gradeSign(1), gradeExec(1) {
     std::cout << "Form Default Constructor Called..." << std::endl;
 }
 
-Form::Form(std::string newName, int newGradeSign, int newGradeExec, bool isMarked) :\
- name(newName), marked(isMarked),\
-  gradeSign(newGradeSign), gradeExec(newGradeExec) {
+Form::Form(std::string newName, int newGradeSign, int newGradeExec) : name(newName), \
+marked(FALSE), gradeSign(newGradeSign), gradeExec(newGradeExec) {
     
     std::cout << "Parametrized Form Constructor Is Called..." << std::endl;
     if (newGradeExec > 150 || newGradeSign > 150) throw GradeTooLowException();
@@ -69,7 +68,7 @@ void Form::beSigned(const Bureaucrat &obj) {
 std::ostream& operator<<(std::ostream &out, const Form& input) {
     
     out << "Form Name: " << input.getName() << ", Marked As " \
-    << input.getMarked() << ", Its Grade To Sign: " \
+    << std::boolalpha << input.getMarked() << ", Its Grade To Sign: " \
     << input.getGradeSign() << ", Its Grade To Execute: " << input.getGradeExec();
     return (out);
 }

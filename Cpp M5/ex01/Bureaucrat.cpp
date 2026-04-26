@@ -1,12 +1,13 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 //// constructors & destructors ////
 Bureaucrat::Bureaucrat() : name("Bureaucratic"), grade(1) {
-    std::cout << "Burreaucrat Default Constructor Called..." << std::endl;
+    std::cout << "Bureaucrat Default Constructor Called..." << std::endl;
 }
 
 Bureaucrat::Bureaucrat(std::string newName, int newGrade) : name(newName) {
-    std::cout << "Burreaucrat Name/Grade Constructor Called..." << std::endl;
+    std::cout << "Bureaucrat Name/Grade Constructor Called..." << std::endl;
     if (newGrade > 150) throw GradeTooLowException();
     else if (newGrade < 1) throw GradeTooHighException();
     std::cout << "Grade Succesfully Given..." << std::endl;
@@ -14,11 +15,11 @@ Bureaucrat::Bureaucrat(std::string newName, int newGrade) : name(newName) {
 }
 
 Bureaucrat::~Bureaucrat() {
-    std::cout << "Burreaucrat Destructor Called..." << std::endl;
+    std::cout << "Bureaucrat Destructor Called..." << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& other) {
-    std::cout << "Burreaucrat Copy Constructor Called..." << std::endl;
+    std::cout << "Bureaucrat Copy Constructor Called..." << std::endl;
     *this = other;
 }
 
@@ -64,4 +65,18 @@ const char* Bureaucrat::GradeTooLowException:: what() const throw() {
 std::ostream& operator<<(std::ostream &out, const Bureaucrat& input) {
     out << input.getName() << ", bureaucrat grade " << input.getGrade() << ".";
     return (out);
+}
+
+//// Form's Tools ////
+void Bureaucrat::signForm(Form &form) {
+ 
+    try {
+        form.beSigned(*this);
+        std::cout << this->getName() << " signed " \
+        << form.getName() << std::endl;
+    }
+    catch (std::exception &e) {
+        std::cerr << this->getName() << " couldn't sign " \
+        << form.getName() << " because " << e.what() << std::endl;
+    }
 }
