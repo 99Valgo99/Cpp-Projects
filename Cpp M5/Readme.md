@@ -174,7 +174,7 @@ The **Linker** then uses those instructions to actually link the address of the 
 
 ### The Template Method Pattern (``Exercise02``)
 
-The **Template Method Pattern**is a behavioral design pattern that defines the ***Skeleton*** of an algorithm in a base class (**The Template**), but lets subclasses override specific steps of the algorithm without changing its overall structure.
+The **Template Method Pattern** is a behavioral design pattern that defines the ***Skeleton*** of an algorithm in a base class (**The Template**), but lets subclasses override specific steps of the algorithm without changing its overall structure.
 
 #### Core Atchitecture
 
