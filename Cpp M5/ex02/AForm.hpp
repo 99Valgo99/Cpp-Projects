@@ -19,7 +19,7 @@ class AForm
     AForm(std::string newName, int newGradeSign, int newGradeExec);
     AForm(const AForm& other);
     AForm& operator=(const AForm& other);
-    ~AForm();
+    virtual ~AForm();
     // getters //
     bool getMarked() const;
     int getGradeSign() const;
@@ -35,6 +35,9 @@ class AForm
     };
     // AForm Tools //
     void beSigned(const Bureaucrat &obj);
+    
+    // Execution Checker //
+    void execute(Bureaucrat const &executor) const;
 };
 
 std::ostream& operator<<(std::ostream &out, const AForm& input);

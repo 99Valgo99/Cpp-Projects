@@ -72,3 +72,8 @@ std::ostream& operator<<(std::ostream &out, const AForm& input) {
     << input.getGradeSign() << ", Its Grade To Execute: " << input.getGradeExec();
     return (out);
 }
+
+//// Execution Checker ////
+void AForm::execute(Bureaucrat const & executor) const {
+    
+}

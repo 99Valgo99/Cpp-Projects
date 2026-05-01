@@ -170,3 +170,33 @@ When the compiler finishes turning the ``.cpp`` files into object files ``.o``, 
 * In ``Bureaucrat.o``, it says; I have the actual code for ``Bureaucrat`` and its methods.
 
 The **Linker** then uses those instructions to actually link the address of the **Bureaucrat** into the holes left from the **Form** code.
+***
+
+### The Template Method Pattern (``Exercise02``)
+
+The **Template Method Pattern**is a behavioral design pattern that defines the ***Skeleton*** of an algorithm in a base class (**The Template**), but lets subclasses override specific steps of the algorithm without changing its overall structure.
+
+#### Core Atchitecture
+
+Think of the base class as a **Project Manager** and the subclasses as **Specialists**.
+
+* **The Template Method** (``AForm:execute``): This is a public, non-virtual function in the base class, it defines the ***Order Of Operations***, it handles the logic that is universal to all forms (***Checking if the form is signed and if the grade is high enough***)
+
+* **The Primitive Operations** (``executeAction``): These are protected, pure virtual functions, the base class doesn't know how to do these steps; it only knows when they should happen.
+
+#### Why We Use It Here
+
+Without this pattern, you would have to check the verifications step of the Form on each one of the subclasses, which means if **The Logic** changes, you will have to change it in a three different files which equals **Weak Maintenance**, also it might lead to **Security Issues**, a Developer might add another subclass forgetting to implement the verifications steps allowing a low-level Bureaucrat to execute it.
+
+This patterns follows the "***Don't call us, we'll call you***" Rule, 
+The subclasses don't call the base class to check the requirements, instead, the base class checks the requirements and then "***Calls Down***" into the subclass to perfom the specific action.
+
+#### Abstract Breakdown & Architectual Pattern: Template Method
+
+To ensure strict bureaucratic oversight, we need to make sure these three concepts are implemented:
+
+* **Standardization**: The base class ``AForm`` provides a public ``execute()`` function that acts as a mandatory wrapper, it handles the "***Universal Rules***" (Checking signature status & grade requirements).
+
+* **Specialization**: Once the requirments are validated, ``AForm`` calls a protected pure virtual function ``executeAction()``.
+
+* **Encapsulation**: This structure ensures that concrete forms, only contain the logic relevant to their specefic tasks, while the safety checks remain centralized and immutable in the base class.
