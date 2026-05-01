@@ -33,6 +33,7 @@ class Bureaucrat
         };
         // Form Tools //
         void signForm(AForm &Aform);
+        void executeForm(AForm const & form);
 };
 
 std::ostream& operator<<(std::ostream &out, const Bureaucrat& input);

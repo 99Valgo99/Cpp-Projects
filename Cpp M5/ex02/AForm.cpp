@@ -75,5 +75,9 @@ std::ostream& operator<<(std::ostream &out, const AForm& input) {
 
 //// Execution Checker ////
 void AForm::execute(Bureaucrat const & executor) const {
-    
+    if (!this->getMarked())
+        throw UnsignedForm();
+    if (executor.getGrade() > this->getGradeExec())
+        throw GradeTooLowException();
+    this->formExecution();
 }

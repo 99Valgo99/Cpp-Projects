@@ -13,6 +13,7 @@ class AForm
         bool marked;
         const int gradeSign;
         const int gradeExec;
+    
     public:
     // constructors & destructor //
     AForm();
@@ -33,11 +34,17 @@ class AForm
     class GradeTooLowException : public std::exception {
         virtual const char* what() const throw();
     };
+    class UnsignedForm : public std::exception {
+        virtual const char* what() const throw();
+    };
     // AForm Tools //
     void beSigned(const Bureaucrat &obj);
     
     // Execution Checker //
     void execute(Bureaucrat const &executor) const;
+
+    // Execution Tool //
+    virtual void formExecution() const = 0;
 };
 
 std::ostream& operator<<(std::ostream &out, const AForm& input);
