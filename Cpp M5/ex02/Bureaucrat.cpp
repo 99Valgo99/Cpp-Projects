@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
 
 //// constructors & destructors ////
 Bureaucrat::Bureaucrat() : name("Bureaucratic"), grade(1) {
@@ -64,4 +65,18 @@ const char* Bureaucrat::GradeTooLowException:: what() const throw() {
 std::ostream& operator<<(std::ostream &out, const Bureaucrat& input) {
     out << input.getName() << ", bureaucrat grade " << input.getGrade() << ".";
     return (out);
+}
+
+//// Form's Tools ////
+void Bureaucrat::signForm(AForm &Aform) {
+ 
+    try {
+        Aform.beSigned(*this);
+        std::cout << this->getName() << " signed " \
+        << Aform.getName() << std::endl;
+    }
+    catch (std::exception &e) {
+        std::cerr << this->getName() << " couldn't sign " \
+        << Aform.getName() << " because " << e.what() << std::endl;
+    }
 }
