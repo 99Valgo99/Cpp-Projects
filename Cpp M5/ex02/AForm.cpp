@@ -58,6 +58,10 @@ const char* AForm::GradeTooLowException:: what() const throw() {
     return ("AForm's Grade Is Too Low...");
 }
 
+const char* AForm::UnsignedForm:: what() const throw() {
+    return ("AForm is not signed yet...");
+}
+
 // AForm tools //
 void AForm::beSigned(const Bureaucrat &obj) {
     if (obj.getGrade() <= gradeSign) marked = TRUE;

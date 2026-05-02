@@ -80,3 +80,15 @@ void Bureaucrat::signForm(AForm &Aform) {
         << Aform.getName() << " because " << e.what() << std::endl;
     }
 }
+
+void Bureaucrat::executeForm(AForm const & form) {
+    try {
+        form.execute(*this);
+        std::cout << this->getName() << " executed " \
+        << form.getName() << std::endl;
+    }
+    catch (std::exception &e) {
+        std::cerr << this->getName() << " couldn't execute " \
+        << form.getName() << " because " << e.what() << std::endl;
+    }
+}
