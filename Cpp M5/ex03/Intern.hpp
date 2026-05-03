@@ -4,7 +4,6 @@
 #include <iostream>
 
 class AForm;
-class Bureaucrat;
 class RobotomyRequestForm;
 class ShrubberyCreationForm;
 class PresidentialPardonForm;
@@ -21,8 +20,14 @@ class Intern
         Intern& operator=(const Intern& other);
         ~Intern();
 
+        // setters & getters //
+        std::string getTarget() const;
+        std::string getFromName() const;
+        void setTarget(std::string _target_);
+        void setFormName(std::string _formName_);
+        
         // Tools //
-        AFom *makeFrom();
-}
+        AForm *makeFrom();
+};
 
 #endif
