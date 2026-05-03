@@ -27,7 +27,7 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 }
 
 /// getter //
-std::string ShrubberyCreationForm::getTargetName() {
+std::string ShrubberyCreationForm::getTargetName() const {
     return (this->target);
 }
 
@@ -36,7 +36,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
 }
 
 /// Form Execution //
-void ShrubberyCreationForm::formExecution() {
+void ShrubberyCreationForm::formExecution() const {
     std::ofstream outfile;
 
     outfile.open(this->getTargetName().append("_shrubbery").c_str(), std::ios::out);

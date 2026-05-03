@@ -79,9 +79,12 @@ std::ostream& operator<<(std::ostream &out, const AForm& input) {
 
 //// Execution Checker ////
 void AForm::execute(Bureaucrat const & executor) const {
+    std::cout << "Form Verification Ongoing..." << std::endl;
     if (!this->getMarked())
         throw UnsignedForm();
+    std::cout << "Form is Signed..." << std::endl;
     if (executor.getGrade() > this->getGradeExec())
         throw GradeTooLowException();
+    std::cout << "Form Can Be Executed..." << std::endl;
     this->formExecution();
 }

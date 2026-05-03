@@ -16,9 +16,10 @@ class RobotomyRequestForm : public AForm {
     ~RobotomyRequestForm();
 
     // getter //
-    std::string getTargetName();
+    std::string getTargetName() const;
     // form execution //
-    void formExecution();
+   void formExecution() const;
+
 };
 
 

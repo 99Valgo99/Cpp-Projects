@@ -26,7 +26,7 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 }
 
 /// getter //
-std::string RobotomyRequestForm::getTargetName() {
+std::string RobotomyRequestForm::getTargetName() const {
     return (this->target);
 }
 
@@ -35,10 +35,10 @@ RobotomyRequestForm::~RobotomyRequestForm() {
 }
 
 /// Form Execution //
-void RobotomyRequestForm::formExecution() {
+void RobotomyRequestForm::formExecution() const {
     std::cout << "Machine Started..VVV...DSDS.." << std::endl;
-    if (std::rand() % 2)
-        std::cout << this->getTargetName() << "has been robotomized." << std::endl;
+    if (std::rand() % 2) // to be changed, not as random as it seems...
+        std::cout << this->getTargetName() << " has been robotomized." << std::endl;
     else
-        std::cout << this->getTargetName() << "has not been robotomized" << std::endl;
+        std::cout << this->getTargetName() << " has not been robotomized" << std::endl;
 }

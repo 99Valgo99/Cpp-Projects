@@ -16,9 +16,10 @@ class ShrubberyCreationForm : public AForm {
     ~ShrubberyCreationForm();
     
     // getter //
-    std::string getTargetName();
+    std::string getTargetName() const;
     // form execution //
-    void formExecution();
+    void formExecution() const;
+
 };
 
 #endif

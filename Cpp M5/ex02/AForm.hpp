@@ -15,12 +15,14 @@ class AForm
         const int gradeExec;
     
     public:
+    
     // constructors & destructor //
     AForm();
     AForm(std::string newName, int newGradeSign, int newGradeExec);
     AForm(const AForm& other);
     AForm& operator=(const AForm& other);
     virtual ~AForm();
+    
     // getters //
     bool getMarked() const;
     int getGradeSign() const;

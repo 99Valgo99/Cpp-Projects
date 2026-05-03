@@ -16,9 +16,10 @@ class PresidentialPardonForm : public AForm {
         ~PresidentialPardonForm();
 
         // getter //
-        std::string getTargetName();
+        std::string getTargetName() const;
         // form execution //
-        void formExecution();
+        protected:
+            void formExecution() const;
 };
 
 #endif

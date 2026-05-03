@@ -11,7 +11,6 @@ PresidentialPardonForm::PresidentialPardonForm(std::string _target_): AForm("Pre
     this->target = _target_;
 }
 
-
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& other): AForm(other), target(other.target) {
     std::cout << "PresidentialPardonForm Copy Constructor Called..." << std::endl;
 }
@@ -20,7 +19,7 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
     std::cout << "PresidentialPardonForm Assignenent Operator Called..." << std::endl;
     if (this != &other){
         AForm::operator=(other);
-        this->target = other.target;
+         this->target = other.target;
     }
     return *this;
 }
@@ -30,11 +29,12 @@ PresidentialPardonForm::~PresidentialPardonForm() {
 }
 
 /// getter //
-std::string PresidentialPardonForm::getTargetName() {
+std::string PresidentialPardonForm::getTargetName() const {
     return (this->target);
 }
 
 /// form execution //
-void PresidentialPardonForm::formExecution(){
-    std::cout << this->getTargetName() << "has been pardoned by Zaphod Beeblebrox." << std::endl;
+void PresidentialPardonForm::formExecution() const {
+    
+    std::cout << this->getTargetName() << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }
