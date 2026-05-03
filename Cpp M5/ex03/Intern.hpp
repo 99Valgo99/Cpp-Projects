@@ -1,5 +1,5 @@
 #ifndef INTERN_HPP
-#define INTERN_IPP
+#define INTERN_HPP
 
 #include <iostream>
 
@@ -25,9 +25,9 @@ class Intern
         std::string getFromName() const;
         void setTarget(std::string _target_);
         void setFormName(std::string _formName_);
-        
+
         // Tools //
-        AForm *makeFrom();
+        AForm *makeForm(std::string formName, std::string target);
 };
 
 #endif

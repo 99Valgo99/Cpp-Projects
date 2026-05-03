@@ -24,9 +24,10 @@ Intern::Intern(const Intern& other) {
 
 Intern& Intern::operator=(const Intern& other) {
     std::cout << "Intern Assignement Operator Called..." << std::endl;
-    if (this != &other)
+    if (this != &other) {
         this->setTarget(other.getTarget());
         this->setFormName(other.getFromName());
+    }
     return *this;
 }
 
@@ -46,4 +47,36 @@ void Intern::setTarget(std::string _target_) {
 }
 void Intern::setFormName(std::string _formName_) {
     this->target = _formName_;
+}
+
+AForm* Intern::makeForm(std::string formName, std::string target) {
+    std::string Forms[4] = {
+        "presidential pardon", "robotomy request", 
+        "shrubbery creation", "not found"
+    };
+    int search = 0;
+    while (search < 3) {
+        if (!Forms[search].compare(formName))
+            break ;
+        search++;
+    }
+    if (search == 3) {
+        std::cerr << "Error: Could not found the matched form..." << std::endl;
+        std::cerr << "Current Options: presidential pardon | robotomy request | shrubbery creation" << std::endl;
+        return (NULL);
+    }
+    switch (search) {
+        case 0:
+            std::cout << "Intern creates " << formName << std::endl;
+            return (new PresidentialPardonForm(target));
+        case 1:
+            std::cout << "Intern creates " << formName << std::endl;
+            return (new RobotomyRequestForm(target));
+        case 2:
+            std::cout << "Intern creates " << formName << std::endl;
+            return (new ShrubberyCreationForm(target));
+        default:
+            std::cerr << "Unexpected Behavior Occured..." << std::endl;
+    }
+    return (NULL);
 }

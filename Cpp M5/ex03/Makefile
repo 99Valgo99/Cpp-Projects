@@ -1,10 +1,10 @@
 CC = c++
 CFLAG = -Wall -Wextra -Werror -std=c++98
 SRC = main.cpp Bureaucrat.cpp AForm.cpp RobotomyRequestForm.cpp \
-	ShrubberyCreationForm.cpp PresidentialPardonForm.cpp
+	ShrubberyCreationForm.cpp PresidentialPardonForm.cpp Intern.cpp
 HEADER = Bureaucrat.hpp AForm.hpp RobotomyRequestForm.hpp \
-	PresidentialPardonForm.hpp ShrubberyCreationForm.hpp
-NAME =	TempleMethod
+	PresidentialPardonForm.hpp ShrubberyCreationForm.hpp Intern.hpp
+NAME =	Intern
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

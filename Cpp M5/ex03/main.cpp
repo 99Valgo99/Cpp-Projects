@@ -1,31 +1,25 @@
-# include "AForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "ShrubberyCreationForm.hpp"
-
-/*
-data:
-    * ShrubberyCreationForm: Sign: 145 | Exec: 137
-    * RobotomyRequestForm: Sign: 72 | Exec: 45
-    * PresidentialPardonForm: Sign: 25 | Exec: 5
-*/
+#include "AForm.hpp"
+#include "Intern.hpp"
 
 int main()
 {
-    Bureaucrat Buro("Buro", 1);
-    PresidentialPardonForm PPF("Pardon");
-    Buro.executeForm(PPF);
-    Buro.signForm(PPF);
-    std::cout << "**-------------------------**" << std::endl;
-    Buro.executeForm(PPF);
-    std::cout << "**-------------------------**" << std::endl;
-    RobotomyRequestForm RRF("Robotomy");
-    Buro.signForm(RRF);
-    std::cout << "**-------------------------**" << std::endl;
-    Buro.executeForm(RRF);
-    std::cout << "**-------------------------**" << std::endl;
-    ShrubberyCreationForm SCF("Shrubbery");
-    Buro.signForm(SCF);
-    std::cout << "**-------------------------**" << std::endl;
-    Buro.executeForm(SCF);
+    Intern internN01;
+
+    AForm* PPF = internN01.makeForm("presidential pardon", "Boss");
+    if (PPF)
+        delete PPF;
+    std::cout << "**---------------------**" << std::endl;
+    
+    AForm* RRF = internN01.makeForm("robotomy request", "robot");
+    if (RRF)
+        delete RRF;
+    std::cout << "**---------------------**" << std::endl;
+
+    AForm* SCF = internN01.makeForm("shrubbery creation", "Tree");
+    if (SCF) {
+        Bureaucrat Buro("Buro", 1);
+        Buro.signForm(*SCF);
+        Buro.executeForm(*SCF);
+        delete SCF;
+    }
 }
