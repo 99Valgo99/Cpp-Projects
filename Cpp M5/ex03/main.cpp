@@ -22,4 +22,9 @@ int main()
         Buro.executeForm(*SCF);
         delete SCF;
     }
+    std::cout << "**---------------------**" << std::endl;
+    
+    AForm *FNF = internN01.makeForm("not found", "404");
+    if (FNF)
+        delete FNF;
 }

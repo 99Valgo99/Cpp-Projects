@@ -37,7 +37,8 @@ RobotomyRequestForm::~RobotomyRequestForm() {
 /// Form Execution //
 void RobotomyRequestForm::formExecution() const {
     std::cout << "Machine Started..VVV...DSDS.." << std::endl;
-    if (std::rand() % 2) // to be changed, not as random as it seems...
+    std::srand(std::time(NULL));
+    if (std::rand() % 2 == 0)
         std::cout << this->getTargetName() << " has been robotomized." << std::endl;
     else
         std::cout << this->getTargetName() << " has not been robotomized" << std::endl;
