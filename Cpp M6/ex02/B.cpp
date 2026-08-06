@@ -1,3 +1,3 @@
-#include "B.cpp"
+#include "B.hpp"
 
 B::~B() {}

@@ -20,15 +20,17 @@ Base* generate(void) {
 }
 
 void identify(Base *p) {
+    std::cout << "*** Get type using Dynamic Cast Pointer ***" << std::endl;
     if (dynamic_cast<A*>(p) != NULL)
         std::cout << "Type Of Object -> A" << std::endl;
     else if (dynamic_cast<B*>(p) != NULL)
         std::cout << "Type Of Object -> B" << std::endl;
-    else if (dynamic_cast<B*>(p) != NULL)
+    else if (dynamic_cast<C*>(p) != NULL)
         std::cout << "Type Of Object -> C" << std::endl;
 } 
 
 void identify(Base& p) {
+    std::cout << "*** Get type using Dynamic Cast Reference ***" << std::endl;
     try {
         A& type1 = dynamic_cast<A&>(p);
         (void)type1;
