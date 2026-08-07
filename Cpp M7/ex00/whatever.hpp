@@ -9,13 +9,13 @@ template <typename T0> void swap(T0& x, T0& y) {
     x = temp_z;
 }
 
-template <typename T1> T1& min(T1& x, T1& y) {
+template <typename T1> const T1& min(const T1& x, const T1& y) {
     if (y > x)
         return x;
     return y;
 }
 
-template <typename T2> T2& max(T2& x, T2& y) {
+template <typename T2> const T2& max(const T2& x, const T2& y) {
     if (x > y)
         return x;
     return y;
