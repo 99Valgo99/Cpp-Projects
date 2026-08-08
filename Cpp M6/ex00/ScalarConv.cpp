@@ -30,7 +30,7 @@ void ScalarConverter::convert(const std::string& lit) {
         return ;
     }
     type = variationsChecks(lit);
-    int pseudo_type = handle_pseudos(lit);
+    int pseudo_type = handle_pseudos(lit); // No need for this one, since handle_pseaudo is called in variations checks by itself, worth a check for later
     if (pseudo_type != FAIL) {
         displayInfnan(pseudo_type);
     }
