@@ -92,3 +92,28 @@ Meanwhile ``max.cpp`` gets compiled on its own -- but no body call ``max`` from 
 
 We put the full definition where the call site can see it -- the header -- so that at the moment the compiler processees ``main.cpp`` and hits ``max(3, 5)``, it has te complete template body available to stamp out ``max<int>`` immediately, in that same translation unit.
 
+## Class Templates
+
+A function template is a blueprint for a function, A ***Class Template*** is a blueprint for an entire class -- every member function, every member variable can use the placeholder type.
+
+```
+template <typename T> // could be written <class T> also
+class Array {
+    private:
+        T* _data;
+        unsigned int _size;
+    public:
+        Array(); // Default Constructor
+        Array(unsigned int n) // Constructor with size
+        Array(const Array &other); // Copy Constructor
+        Array &operator=(const Array &other) // Copy Assignment
+        ~Array(); // Destructor
+
+        T &operator[](unsigned int index);
+        unsigned int size() const;
+}
+```
+
+**Notice**: every member function is part of class template and gets instantiated per ``T``, but not every memeber function's own signature needs to reference ``T`` directly.
+When we write ``Array<int> a(5)``, the compiler generates an entire concrete class -- ``Array<int>`` -- with ``_data`` as ``int*``, ``operator[]`` returning ``int&``, etc. Same instantiation-on-use princile as function templates, just scaled up to a whole class.
+
