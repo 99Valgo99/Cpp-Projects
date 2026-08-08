@@ -21,4 +21,6 @@ int main() {
     ::iter(arr, length, incree);
     std::cout << "Incrementing using Incree Function" << std::endl;
     ::iter(arr, length, outPut);
+
+    return 0;
 }
