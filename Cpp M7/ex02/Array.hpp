@@ -18,6 +18,15 @@ class Array {
         T& operator[](unsigned int index);
         const T &operator[](unsigned int index) const;
         unsigned int size() const;
+
+        class oTB : public std::exception {
+            public:
+                const char *what() const throw() {
+                    return "Error: Index Is Out Of Bounds...";
+                }
+        };
 };
+
+# include "Array.tpp"
 
 # endif

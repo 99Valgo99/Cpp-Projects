@@ -31,3 +31,19 @@ template <class T> Array<T>::~Array() {
     std::cout << "Destructor Called..." << std::endl;
     delete[] info;
 }
+
+template <class T> T& Array<T>::operator[](unsigned int index) {
+    if (index >= infosize)
+        throw oTB();
+    return info[index];
+}
+
+template <class T> const T& Array<T>::operator[](unsigned int index) const {
+    if (index >= infosize)
+        throw oTB();
+    return info[index];
+}
+
+template <class T> unsigned int Array<T>::size() const {
+    return (this->infosize);
+}
