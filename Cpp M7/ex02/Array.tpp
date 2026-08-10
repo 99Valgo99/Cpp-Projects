@@ -1,6 +1,6 @@
 #include "Array.hpp"
 
-template <class T> Array<T>::Array() : infosize(0), info(0) {
+template <class T> Array<T>::Array() : info(0), infosize(0) {
     std::cout << "Default Constructor Called..." << std::endl;
 }
 
