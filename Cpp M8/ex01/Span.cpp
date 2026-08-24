@@ -1,4 +1,4 @@
-# include "span.hpp"
+# include "Span.hpp"
 
 Span::Span() {
     std::cout << "Default Constructor Called..." << std::endl;
@@ -28,17 +28,29 @@ Span::~Span() {
 }
 
 void Span::addNumber(int newNumber) {
+    std::cout << "Adding Numbers..." << std::endl;
     if (v.size() == maxNumbers)
         throw spanMaxError();
     v.push_back(newNumber);
 }
 
 int Span::shortestSpan() {
-    
+    std::cout << "Looking For The ShortestSpan..." << std::endl;
+    if (v.size() < 2)
+        throw spanError();
+    std::vector<int> v_cpy(v);
+    std::sort(v_cpy.begin(), v_cpy.end());
+    int shortest_value = v_cpy[1] - v_cpy[0];
+    for (std::vector<int>::iterator it = v_cpy.begin() + 2; it != v_cpy.end(); ++it)
+        shortest_value = std::min(shortest_value, *it - *(it - 1));
+    return (shortest_value);
 }
 
 int Span::longestSpan() {
-    
+    std::cout << "Looking For The LongestSpan..." << std::endl;
+    if (v.size() < 2)
+        throw spanError();
+    return (*(std::max_element(v.begin(), v.end())) - *(std::min_element(v.begin(), v.end())));
 }
 
 const char* Span::spanMaxError::what() const throw() {
@@ -47,4 +59,8 @@ const char* Span::spanMaxError::what() const throw() {
 
 const char* Span::spanError::what() const throw() {
     return "No element in the span or only one element exist...";
+}
+
+unsigned int Span::maxNumbersGetter() const {
+    return (this->maxNumbers);
 }

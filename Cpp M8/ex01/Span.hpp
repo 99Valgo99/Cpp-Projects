@@ -3,6 +3,10 @@
 
 # include <vector>
 # include <iostream>
+# include <algorithm>
+# include <iterator>
+# include <list>
+# include <ctime>
 
 class Span {
     private:
@@ -19,6 +23,8 @@ class Span {
         int longestSpan();
         void addNumber(int newNumber);
 
+        unsigned int maxNumbersGetter() const;
+
         class spanMaxError : public std::exception {
             virtual const char* what() const throw();
         };
@@ -26,6 +32,13 @@ class Span {
         class spanError : public std::exception {
             virtual const char* what() const throw();
         };
+
+        template <typename Iter> void addRangedNumber(Iter one, Iter two) {
+            if (v.size() + std::distance(one, two) > maxNumbers) {
+                throw spanMaxError();
+            }
+            std::copy(one, two, std::back_inserter(v));
+        }
 };
 
 

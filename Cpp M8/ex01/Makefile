@@ -2,7 +2,7 @@ CC = c++
 CFLAG = -Wall -Wextra -Werror -std=c++98
 SRC = main.cpp Span.cpp
 HEADER = Span.hpp
-NAME =	easyFind
+NAME =	Span
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
