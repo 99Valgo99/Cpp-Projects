@@ -223,3 +223,92 @@ This matters for ``_data[N]`` specifically because C++98 arrays need a compile-t
 
 Restirctions worth knowing (C++98 era):
 Non-type parameters must be integral types, enums, pointers or refrences not floats, not arbitrary objects, thus ``int, char, bool, unsigned long`` etc are finee; ``template <double D>`` is not allowed.
+
+## VI) Multiple Template Parameters & Default Template Arguments
+
+### Multiple Type Parameters
+
+Nothing new conceptually -- just more than one ``T``
+
+```
+template <typename K, typename V>
+class Pair {
+    private:
+        K _key;
+        V _value;
+    public:
+        Pair(K key, V value) : _key(key), _value(value) {}
+        K getKey() const { return _key; }
+        V getValue() const { return _value; }
+};
+```
+
+```
+Pair<std::string, int> p ("age", 30);
+```
+
+Each parameter is deduced/specified independently. ``K`` and ``V`` can be the same type or different -- the compiler doesn't care, they're just two independent blanks to fill in.
+
+### Default template arguments
+
+Just like default function arguments, a template parameter can have a default
+
+In oridnary C++ feature:
+
+```
+void greet(std::string name, std::string greeting = "Hello") {
+    std::cout << greeting << "," << name << std::endl;
+}
+```
+
+``greeting`` has a default value: ``"Hello"``, this means we can call this function in two ways:
+
+```
+greet("Xoris");
+greet("Xoris", "Salut !"); // we explicitly override the Hello default value.
+```
+
+Just like that, Template also can have a defualt parameter we don't have to supply:
+
+```
+template <typename T, typename Container = std::vector<T> >
+class Stack {
+    Container _c;
+}
+```
+
+Here, ``Container`` is a second template parameter -- but it has a default value: ``std::vector<T>`` this means:
+
+```
+Stack<int> s1;
+```
+
+We only supplied ``T = int``, we never touched ``Container`` at all -- so the compiler falls back to the default, and quietly instantiates this as if we write:
+
+```
+Stack<int, std::vector<int> > s1;
+```
+
+***Note***: it's ``std::vector<T>``, not a fixed type -- the default itself is written in terms of ``T``, so it adapts: if ``T = int``, the default becomes ``vector<int>``; if ``T = std::string`` it becomes ``vector<std::string>``.
+
+But we can also override it explicitly, same as we would override any default function argument:
+
+```
+Stack<int, std::deque<int> > s2;
+```
+
+### Why this matters for ``std::stack``
+
+This is the real, actual signature of ``std::stack`` in the standard library:
+
+```
+template <typename T, typename Container = std::deque<t> >
+class stack;
+```
+
+So wehn we write ``std::stack<int> myStack;``, we never chose a conatainer -- but one was chosen for us: ``std:;deque<int>``, because that's ``std::stack``'s default.
+
+This is why ``std::stack`` is described as being backed by a ``deque`` -- it's not a hardcoded rule, it's just what happens when we don't oevrride the second template parameter.
+
+And this is why ``std::stack<int, std::vector<int> >`` is legal too -- we are just suppliying the scond parameter explicitly instead of taking the default.
+
