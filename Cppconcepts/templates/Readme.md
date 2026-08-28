@@ -154,3 +154,42 @@ There's no way around this in C++98 -- the class name alone (``Box``) ins't a re
 
 ## IV) The Compilation Model -- Why Templates Lives in Headers:
 
+**Normal (non-template) compilatio recap**
+
+For an ordinary function, we are used to this split:
+
+```
+// foo.hpp
+int add(int a, int b); // declaration
+
+// foo.cpp
+int add(int a, int b) { // definition
+    return  a + b;
+}
+```
+
+``foo.cpp`` gets compiled **once**, independently, into ``foo.o`` -- actual machine code sits in that object file. Other ``.cpp`` files that ``#include "foo.hpp"`` just need the declaration to compile their calls to ``add()``; the linker later stitches the call to the actual machine code in ``foo.o``. This works because ``add``'s machine code deosn't depend on who's calling it -- it's fixed, one version, forever.
+
+### Why this breaks for templates
+
+```
+// box.hpp
+
+template <typename T>
+class Box {
+    private:
+        T _value;
+    public:
+        T getValue() const { return _value; }
+};
+```
+
+If we tried to compile ``box.cpp`` on its own like we normally do in case of ``foo.cpp`` example above; the compiler would hit a wall: **it doesn't know what ``T`` is yet. There is no machine code to generate for ``getValue()`` beacuse "return a ``T``" isn't a real instruction -- we can't generate assembly for a type that doesn't exist yet. ``T`` only becomes real at the moment someone, somewhere, writes ``Box<int>``.
+
+So the compiler can't compile the template body in isolation the way it compiles ``foo.cpp``. It needs to see **both** the template definition **and** the specific type it's being instantiated with, **at the same time**, to generate real code.
+
+### Templates must be visible where they're used
+
+This means: wherever we write ``Box<int> b;``, the compiler needs the full template definition available right there -- not just a declaration. If the definition lived only in ``box.cpp``, and we ``#include "box.hpp"`` (declarations only) in ``main.cp`` the compiler compiling ``main.cpp`` would have no idea how to build ``Box<int>`` -- it only knows ``Box`` exists, not what it does.
+
+This is why the convention is: **templates code goes in headers**, so it's visible in every translation unit that uses it.
