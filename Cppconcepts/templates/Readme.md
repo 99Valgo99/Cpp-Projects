@@ -193,3 +193,33 @@ So the compiler can't compile the template body in isolation the way it compiles
 This means: wherever we write ``Box<int> b;``, the compiler needs the full template definition available right there -- not just a declaration. If the definition lived only in ``box.cpp``, and we ``#include "box.hpp"`` (declarations only) in ``main.cp`` the compiler compiling ``main.cpp`` would have no idea how to build ``Box<int>`` -- it only knows ``Box`` exists, not what it does.
 
 This is why the convention is: **templates code goes in headers**, so it's visible in every translation unit that uses it.
+
+## V) Non-Type Template Parameters
+
+So far, every template has been a **type** (``typename T``).
+But templates can also take an actual **Value** as parameter, known at compile time. That's a **non-type template parameter**.
+
+```
+template <typename T, int N>
+class Array {
+    private:
+        T _data[N];
+    public:
+        int size() const { return N; }
+};
+```
+
+Usage:
+
+```
+Array<int, 5> a // N = 5, baked in at compile time
+Array<float, 10> b; // N = 10, a totally diifferent intantiated class than Array<int, 5>
+```
+
+The key thing: ``N`` isn't a variable -- it's a compile-time constant baked into the type itself, exactly like ``T`` is. ``Array<int, 5>`` and ``Array<int, 10>`` are two distinct, unrelated generated classes, the same way ``Box<int>`` and ``Box<float>`` were two distinct classes in the last section.
+This is why we can do things like declare T _data[N] -- a fixed-size array -- because by the time the compiler generates this class, ``N`` is a known constant not a runtime value.
+
+This matters for ``_data[N]`` specifically because C++98 arrays need a compile-time constant size -- we can't do ``T _data[some_runtime_variable]``. Non-type template parameters give us that compile-time constant, per-instantiation.
+
+Restirctions worth knowing (C++98 era):
+Non-type parameters must be integral types, enums, pointers or refrences not floats, not arbitrary objects, thus ``int, char, bool, unsigned long`` etc are finee; ``template <double D>`` is not allowed.
