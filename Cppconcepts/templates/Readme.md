@@ -11,7 +11,6 @@ This Readme is dedicated to the Concept of **Templates**, the next content of it
 * 7. **Templates + inheritance**
 * 8. **Container adapters**
 * 9. **iterators as a concept**
-* 10. **Tying it together**
 
 ## I) Why templates exist
 
@@ -401,3 +400,51 @@ The key shift is when the check happens, not how it searches
 * If we instead instantiate ``Derived<char>``, pass 2 would try to resolve ``this->_value`` against the specialized ``Base<char>`` -- and there it would fail, correctly with a real meaningful erro ("no member ``_value`` in ``Base<char>``") -- Because for ``char`` specifically, it's actually true that ``_value`` doesn't exist.
 
 So ``this->`` doesn't magically make the member exist -- it just **postpones the check to the moment it can actually be answered correctly**, per-``T``, instead of forcing an impossible blanet answer that has to hold for every ``T`` all times and in all cases.
+
+## VIII) Container Adapters
+
+An **Adapter** is a class that doesn't implement its own storage or algorithm -- it **wraps another object** and exposes a **restricted or reshaped interface** to it.
+The underlying object does all the real work; the adapter just controls what we are allowed to do with it.
+
+``std::stack`` is exactly this, it does not implement its own linked-list or array logic internally. instead it **wraps** an existing container (by default ``std::deque``) and exposes only a narrow LIFO-style interface on top of it: ``push, pop, top. empty, size``. That's it -- no ``begin()``, no ``end()``, no indexing, nothing else.
+
+Here is a simplified illustrating idea of what ``std::stack`` looks like (Not the literal standard library source):
+
+```
+template <typename T, typename Container = std::deque<T> >
+class stack {
+protected:
+    Container c;   // <-- the wrapped/underlying container
+
+public:
+    void push(const T& val) { c.push_back(val); }
+    void pop()               { c.pop_back(); }
+    T& top()                 { return c.back(); }
+    bool empty() const       { return c.empty(); }
+    size_t size() const      { return c.size(); }
+};
+```
+
+Every single one of ``stack``'s member function is just a thin call-through to the equivalent ``deque`` (or whatever ``Container`` is) operation. ``push`` does not know how to insert anything -- it just calls ``c.push_back()``. ``stack`` contributes zero new logic; it contributes **restriction**. A ``deque`` already has ``push_front``, indexing via ``operator[]``, iterators, insertion in the middle -- a ``stack`` deliberately hides all of that, and only lets you push/pop/peek at one end. That restriction is the entire point: it enforces LIFO usage at the type level, so we literally cannot misuse it by, say, reading from the middle.
+
+## IX) Iterators
+
+An iterator is **not** a pointer, even though it often looks and behaves like one. An iterator is an **abstraction** -- an object that represents a position within a sequence, and supports a small, standardlized set of operations to move through that sequence and access the element at the current position, regarldess of how that sequence is actually stored in memory underneath.
+
+That last part is the entire point, Consider:
+
+```
+std::vector<int> v;
+std::list<int> l;
+```
+
+A ``vector`` stores its elements **contiguously** in memory -- element ``i+1`` is literally right next to element ``i``. A ``list`` stores elements as **seperate nodes scattered in memory**, each node holding a pointer to the next node. There are completely different physical layouts.
+
+And yet, we can write the exact same loop for both:
+
+```
+for (std::vector<int>::iterator it = v.begin(); it != v.end(); ++it) { ... }
+for (std::list<int>::iterator it = l.begin(); it != l.end(); ++it) { ... }
+```
+
+``++it`` on the vector iterator, under the hood, probably does something like real pointer arithmetic (``ptr + 1``) since the memory is contiguous, ``++it`` on the list iterator does something completely different -- it follows a ``next`` pointer to a scattered node elsewhere in memory. **the code we weite doesn't know or care which one is happening**. That's the abstraction: the interface (``++it, *it, it != end``) stays identical, while the implementation underneath is free to be completely different per container. This is the same generic-programming philosophy as templates themselves -- write one algorithm, let it work across different underlying representations.
