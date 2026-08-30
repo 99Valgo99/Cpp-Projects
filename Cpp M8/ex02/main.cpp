@@ -78,5 +78,17 @@ int main()
     }
     std::cout << "**************************" << std::endl;
     std::cout << "Testing Const Iterator" << std::endl;
+    {
+        MutantStack<int> tempo;
+        tempo.push(3);
+        tempo.push(2);
+        tempo.push(1);
+        
+        
+        const MutantStack<int> constant_mstack(tempo);
+        std::cout << "Const Mstack:" << std::endl;
+        for (MutantStack<int>::const_iterator it = constant_mstack.begin(); it != constant_mstack.end(); ++it)
+            std::cout << *it << std::endl;
+    }
     return 0;
 }
