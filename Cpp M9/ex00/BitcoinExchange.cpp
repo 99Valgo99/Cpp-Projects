@@ -10,10 +10,22 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) : dataBase(other.
 
 BitcoinExchange::BitcoinExchange(const std::string& filename) {
     std::ifstream dataFile;
+    std::string readedLine;
     dataFile.open(filename.c_str(), std::ios::in);
     if (!dataFile)
         throw std::runtime_error("Error: Failed To Open Data.csv File");
-
+    getline(dataFile, readedLine);
+    while (getline(dataFile, readedLine)) {
+        size_t splitData = readedLine.find(',');
+        if (splitData == std::string::npos)
+            continue;
+        std::string date = readedLine.substr(0, splitData);
+        std::string value = readedLine.substr(splitData + 1);
+        float rate;
+        if (!dateValidation(date) || !valueValidation(value, rate))
+            continue;
+        dataBase.insert(std::make_pair(date, rate));
+    }
 }
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
@@ -80,3 +92,16 @@ bool dateValidation(const std::string& date) {
         return false;
     return true;
 }
+
+bool valueValidation(const std::string& value, float& getvValue) {
+    char *endchar = 0;
+
+    if (value.empty())
+        return false;
+    double res = std::strtod(value.c_str(), &endchar);
+    if (*endchar != '\0' || res < 0)
+        return false;
+    else
+        getvValue = res;
+    return true;
+} 

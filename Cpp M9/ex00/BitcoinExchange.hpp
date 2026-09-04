@@ -7,6 +7,7 @@
 # include <fstream>
 # include <sstream>
 # include <ctime>
+# include <cstdlib>
 
 class BitcoinExchange {
     private:
@@ -22,6 +23,6 @@ class BitcoinExchange {
 };
     
 bool dateValidation(const std::string& date);
-bool valueValidation(const std::string& value, float& valueOut);
+bool valueValidation(const std::string& value, float& getvValue);
 
 # endif
