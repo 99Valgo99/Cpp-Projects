@@ -1,14 +1,18 @@
 # include "BitcoinExchange.hpp"
 
-int inputFileValidity(const char* inputFile) {
+static int inputFileValidity(const char* inputFile, const BitcoinExchange& btc) {
     std::ifstream infile;
-
+    std::string readedLine;
     infile.open(inputFile, std::ios::in);
     if (!infile) {
         std::cerr << "Error: Failed To Open The File" << std::endl;
         return 1;
     }
-    // Hmmm
+    getline(infile, readedLine);
+    while (getline(infile, readedLine)) {
+        if (inputFileProcess(readedLine, btc))
+            return 1;
+    }
     return 0;
 }
 

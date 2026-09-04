@@ -24,5 +24,6 @@ class BitcoinExchange {
     
 bool dateValidation(const std::string& date);
 bool valueValidation(const std::string& value, float& getvValue);
+void inputFileProcess(const std::string& readedLine, const BitcoinExchange& btc);
 
 # endif

@@ -40,7 +40,13 @@ BitcoinExchange::~BitcoinExchange() {
 }
 
 float BitcoinExchange::rateBasedDate(const std::string& query) const {
-    
+    std::map<std::string, float>::const_iterator it = dataBase.lower_bound(query);
+    if (it != dataBase.end() && it->first == query)
+        return it->second;
+    if (it == dataBase.begin())
+        throw std::runtime_error("Error: No Rate For This Date");
+    --it;
+    return it->second;
 }
 
 bool dateValidation(const std::string& date) {
@@ -104,4 +110,42 @@ bool valueValidation(const std::string& value, float& getvValue) {
     else
         getvValue = res;
     return true;
-} 
+}
+
+void inputFileProcess(const std::string& readedLine, const BitcoinExchange& btc) {
+    size_t pipeline = readedLine.find('|');
+    if (pipeline == std::string::npos) {
+        std::cerr << "Error: bad input => " << readedLine << std::endl;
+        return ;
+    }
+    std::string date = readedLine.substr(0, pipeline);
+    std::string value = readedLine.substr(pipeline + 1);
+    // to trim
+    float valuefloated;
+    if (!dateValidation(date)) {
+        std::cerr << "Error: bad input => " << date << std::endl;
+        return ;
+    }
+    bool numberFigure = !value.empty() && (std::isdigit(value[0])
+        || value[0] == '-' || value[0] == '+');
+    if (!numberFigure) {
+        std::cerr << "Error: bad input => " << value << std::endl;
+        return ;
+    }
+    if (!valueValidation(value, valuefloated)) {
+        std::cerr << "Error: not a positive number." << std::endl;
+        return ;
+    }
+    if (valuefloated > 1000) {
+        std::cerr << "Error: too large a number." << std::endl;
+        return ;
+    }
+    try {
+        float rate = btc.rateBasedDate(date);
+        std::cout << date << " => " << valuefloated << " = " << (valuefloated * rate) << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    return ;
+}
