@@ -5,6 +5,8 @@
 # include <iostream>
 # include <stdexcept>
 # include <fstream>
+# include <sstream>
+# include <ctime>
 
 class BitcoinExchange {
     private:
@@ -17,8 +19,9 @@ class BitcoinExchange {
         ~BitcoinExchange();
 
         float rateBasedDate(const std::string& query) const;
-
 };
-
+    
+bool dateValidation(const std::string& date);
+bool valueValidation(const std::string& value, float& valueOut);
 
 # endif
