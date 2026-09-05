@@ -5,7 +5,7 @@ static void inputFileValidity(const char* inputFile, const BitcoinExchange& btc)
     std::string readedLine;
     infile.open(inputFile, std::ios::in);
     if (!infile) {
-        std::cerr << "Error: Failed To Open The File" << std::endl;
+        std::cerr << "Error: could not open file." << std::endl;
         return ;
     }
     getline(infile, readedLine);
@@ -16,7 +16,7 @@ static void inputFileValidity(const char* inputFile, const BitcoinExchange& btc)
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        std::cerr << "The Program should have One Argument [Format]: ./btc filename.csv" << std::endl;
+        std::cerr << "Error: could not open file." << std::endl;
         return 1;
     }
     const std::string filename = "./data.csv";

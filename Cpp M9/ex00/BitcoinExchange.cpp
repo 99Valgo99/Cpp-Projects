@@ -35,9 +35,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
     return *this;
 }
 
-BitcoinExchange::~BitcoinExchange() {
-    std::cout << "Destrcutor Called" << std::endl;
-}
+BitcoinExchange::~BitcoinExchange() {}
 
 float BitcoinExchange::rateBasedDate(const std::string& query) const {
     std::map<std::string, float>::const_iterator it = dataBase.lower_bound(query);
