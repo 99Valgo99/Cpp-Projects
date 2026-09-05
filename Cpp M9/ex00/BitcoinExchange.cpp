@@ -70,7 +70,7 @@ bool dateValidation(const std::string& date) {
             month = std::atoi(token.c_str());
         else if (tokenPassed == 2)
             day = std::atoi(token.c_str());
-        for (int i = 0; i < token.size(); i++) {
+        for (size_t i = 0; i < token.size(); i++) {
             if (!std::isdigit(token[i]))
                 return false;
             if (tokenPassed == 1 && token == "02")
@@ -120,19 +120,35 @@ void inputFileProcess(const std::string& readedLine, const BitcoinExchange& btc)
     }
     std::string date = readedLine.substr(0, pipeline);
     std::string value = readedLine.substr(pipeline + 1);
-    // to trim
+    
+    size_t beginingDate = date.find_first_not_of(" ");
+    size_t beginingValue = value.find_first_not_of(" ");
+    size_t endingDate = date.find_last_not_of(" ");
+    size_t endingValue = value.find_last_not_of(" ");
+
+    std::string newDate;
+    std::string newValue;
+    if (beginingDate == std::string::npos)
+        newDate = "";
+    else
+        newDate = date.substr(beginingDate, endingDate - beginingDate + 1);
+    if (beginingValue == std::string::npos)
+        newValue = "";
+    else
+        newValue = value.substr(beginingValue, endingValue - beginingValue + 1);
+
     float valuefloated;
-    if (!dateValidation(date)) {
-        std::cerr << "Error: bad input => " << date << std::endl;
+    if (!dateValidation(newDate)) {
+        std::cerr << "Error: bad input => " << newDate << std::endl;
         return ;
     }
-    bool numberFigure = !value.empty() && (std::isdigit(value[0])
-        || value[0] == '-' || value[0] == '+');
+    bool numberFigure = !newValue.empty() && (std::isdigit(newValue[0])
+        || newValue[0] == '-' || newValue[0] == '+');
     if (!numberFigure) {
-        std::cerr << "Error: bad input => " << value << std::endl;
+        std::cerr << "Error: bad input => " << newValue << std::endl;
         return ;
     }
-    if (!valueValidation(value, valuefloated)) {
+    if (!valueValidation(newValue, valuefloated)) {
         std::cerr << "Error: not a positive number." << std::endl;
         return ;
     }
@@ -141,8 +157,8 @@ void inputFileProcess(const std::string& readedLine, const BitcoinExchange& btc)
         return ;
     }
     try {
-        float rate = btc.rateBasedDate(date);
-        std::cout << date << " => " << valuefloated << " = " << (valuefloated * rate) << std::endl;
+        float rate = btc.rateBasedDate(newDate);
+        std::cout << newDate << " => " << valuefloated << " = " << (valuefloated * rate) << std::endl;
     }
     catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
