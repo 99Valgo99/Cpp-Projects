@@ -14,10 +14,18 @@ int main()
         std::cout << "**--------------------------------**\n";
         std::cout << std::endl;
         
+        
         std::cout << "** Double Incrementing The Grade...\n";
         Buro.gradeIncrement(); Buro.gradeIncrement();
         std::cout << "** If The Exception Has Been Thrown, You Wont See This Message... **\n";
         std::cout << Buro << std::endl;
+        
+        std::cout << "** Throwing on construction **\n";
+        Bureaucrat high("high", 0);
+        std::cout << high << std::endl;
+
+        Bureaucrat low("low", 151);
+        std::cout << low << std::endl;
     }
     catch (std::exception& e)
     {
