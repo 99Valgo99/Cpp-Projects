@@ -38,7 +38,7 @@ int Bureaucrat::getGrade()const {
     return (this->grade);
 }
 
-//// Incre/Decrement ////
+//// incre/decrement ////
 void Bureaucrat::gradeIncrement() {
     if (this->grade - 1 < 1) throw GradeTooHighException();
     std::cout << "Grade Successfully Incremented..." << std::endl;
@@ -51,7 +51,7 @@ void Bureaucrat::gradeDecrement() {
     this->grade += 1;
 }
 
-//// Exception's Functions ////
+//// exception's functions ////
 const char* Bureaucrat::GradeTooHighException:: what() const throw() {
     return ("Grade is too high to be set...");
 }
@@ -66,7 +66,7 @@ std::ostream& operator<<(std::ostream &out, const Bureaucrat& input) {
     return (out);
 }
 
-//// Form's Tools ////
+//// form's tools ////
 void Bureaucrat::signForm(Form &form) {
  
     try {

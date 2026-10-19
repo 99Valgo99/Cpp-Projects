@@ -8,11 +8,20 @@ int main()
     std::cout << unableBuro << std::endl;
     std::cout << "***-----------------------***\n";
 
-    Form Form("Form1", 2, 11);
-    std::cout << Form << std::endl;
+    Form Form1("Form1", 2, 11);
+    std::cout << Form1 << std::endl;
     std::cout << "\n***----- Successfull Form Signing ----***\n\n";
-    ableBuro.signForm(Form);
+    ableBuro.signForm(Form1);
 
     std::cout << "***----- Unsuccessfull Form Signing ----***\n\n";
-    unableBuro.signForm(Form);
+    unableBuro.signForm(Form1);
+    
+    try {
+        std::cout << "** Throw on construction **\n";
+        Form Form2("Form2", 0, 11);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
 }
