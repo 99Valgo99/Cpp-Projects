@@ -8,8 +8,6 @@ int main()
     std::cout << std::endl;
     try
     {
-        Bureaucrat Buro2("Buro2", 150);
-        std::cout << Buro2 << std::endl;
         std::cout << "** Decrementing The Grade For Buro... **\n";
         Buro.gradeDecrement();
         std::cout << std::endl;
