@@ -1,12 +1,12 @@
 #include "RobotomyRequestForm.hpp"
 
 // constructors & destructors //
-RobotomyRequestForm::RobotomyRequestForm(): AForm("RobotomyRequestForm", 25, 5) {
+RobotomyRequestForm::RobotomyRequestForm(): AForm("RobotomyRequestForm", 72, 45 {
 std::cout << "RobotomyRequestForm Default Constructor Called..." << std::endl;
 this->target = "RandomTarget";
 }
 
-RobotomyRequestForm::RobotomyRequestForm(std::string _target_): AForm("RobotomyRequestForm", 25, 5) {
+RobotomyRequestForm::RobotomyRequestForm(std::string _target_): AForm("RobotomyRequestForm", 72, 45) {
     std::cout << "RobotomyRequestForm Parametrized Constructor Called..." << std::endl;
     this->target = _target_;
 }

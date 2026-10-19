@@ -12,8 +12,6 @@ $(NAME): $(OBJ)
 
 %.o: %.cpp $(HEADER)
 	$(CC) $(CFLAG) -c $< -o $@
-# asm:
-#	$(CXX) $(CXXFLAGS) -S -fverbose-asm Bureaucrat.cpp -o Bureaucrat.s
 
 clean:
 	rm -rf $(OBJ)

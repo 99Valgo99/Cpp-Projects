@@ -2,32 +2,25 @@
 #define INTERN_HPP
 
 #include <iostream>
+#include <string>
 
 class AForm;
-class RobotomyRequestForm;
-class ShrubberyCreationForm;
-class PresidentialPardonForm;
 
 class Intern
 {
     private:
-        std::string target;
-        std::string formName;
+        AForm* createPresidential(const std::string& target) const;
+        AForm* createRobotomy(const std::string& target) const;
+        AForm* createShrubbery(const std::string& target) const;
     public:
+        // constructors & destructor //
         Intern();
-        Intern(std::string _formName_, std::string _target_);
         Intern(const Intern& other);
         Intern& operator=(const Intern& other);
         ~Intern();
 
-        // setters & getters //
-        std::string getTarget() const;
-        std::string getFromName() const;
-        void setTarget(std::string _target_);
-        void setFormName(std::string _formName_);
-
-        // Tools //
-        AForm *makeForm(std::string formName, std::string target);
+        // tools //
+        AForm* makeForm(const std::string& formName, const std::string& target) const;
 };
 
 #endif

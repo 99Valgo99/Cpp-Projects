@@ -19,7 +19,7 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
     std::cout << "PresidentialPardonForm Assignenent Operator Called..." << std::endl;
     if (this != &other){
         AForm::operator=(other);
-         this->target = other.target;
+        this->target = other.target;
     }
     return *this;
 }

@@ -18,9 +18,8 @@ Bureaucrat::~Bureaucrat() {
     std::cout << "Bureaucrat Destructor Called..." << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& other) {
+Bureaucrat::Bureaucrat(const Bureaucrat& other) : name(other.name), grade(other.grade) {
     std::cout << "Bureaucrat Copy Constructor Called..." << std::endl;
-    *this = other;
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
@@ -81,7 +80,7 @@ void Bureaucrat::signForm(AForm &Aform) {
     }
 }
 
-void Bureaucrat::executeForm(AForm const & form) {
+void Bureaucrat::executeForm(AForm const & form) const {
     try {
         form.execute(*this);
         std::cout << this->getName() << " executed " \

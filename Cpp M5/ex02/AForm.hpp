@@ -31,13 +31,16 @@ class AForm
     
     // exception's classes //
     class GradeTooHighException : public std::exception {
-        virtual const char* what() const throw();
+        public:
+            virtual const char* what() const throw();
     };
     class GradeTooLowException : public std::exception {
-        virtual const char* what() const throw();
+        public:    
+            virtual const char* what() const throw();
     };
     class UnsignedForm : public std::exception {
-        virtual const char* what() const throw();
+        public:
+            virtual const char* what() const throw();
     };
     // AForm Tools //
     void beSigned(const Bureaucrat &obj);

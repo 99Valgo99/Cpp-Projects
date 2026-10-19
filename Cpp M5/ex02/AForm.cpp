@@ -1,7 +1,7 @@
 # include "AForm.hpp"
 
 // constructors & destructors //
-AForm::AForm() : name("AFor"), marked(FALSE), gradeSign(1), gradeExec(1) {
+AForm::AForm() : name("AForm"), marked(FALSE), gradeSign(1), gradeExec(1) {
     std::cout << "AForm Default Constructor Called..." << std::endl;
 }
 
@@ -70,14 +70,14 @@ void AForm::beSigned(const Bureaucrat &obj) {
 
 //// insertion operator ////
 std::ostream& operator<<(std::ostream &out, const AForm& input) {
-    
+   
     out << "AForm Name: " << input.getName() << ", Marked As " \
     << std::boolalpha << input.getMarked() << ", Its Grade To Sign: " \
     << input.getGradeSign() << ", Its Grade To Execute: " << input.getGradeExec();
     return (out);
 }
 
-//// Execution Checker ////
+//// execution checker ////
 void AForm::execute(Bureaucrat const & executor) const {
     std::cout << "Form Verification Ongoing..." << std::endl;
     if (!this->getMarked())

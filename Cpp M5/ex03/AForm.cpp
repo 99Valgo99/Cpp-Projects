@@ -1,7 +1,7 @@
 # include "AForm.hpp"
 
 // constructors & destructors //
-AForm::AForm() : name("AFor"), marked(FALSE), gradeSign(1), gradeExec(1) {
+AForm::AForm() : name("AForm"), marked(FALSE), gradeSign(1), gradeExec(1) {
     std::cout << "AForm Default Constructor Called..." << std::endl;
 }
 

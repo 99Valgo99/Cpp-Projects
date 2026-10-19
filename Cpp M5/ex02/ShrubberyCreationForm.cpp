@@ -2,12 +2,12 @@
 #include "ShrubberyCreationForm.hpp"
 
 // constructors & destructors //
-ShrubberyCreationForm::ShrubberyCreationForm(): AForm("ShrubberyCreationForm", 25, 5) {
+ShrubberyCreationForm::ShrubberyCreationForm(): AForm("ShrubberyCreationForm", 145, 137) {
 std::cout << "ShrubberyCreationForm Default Constructor Called..." << std::endl;
 this->target = "RandomTarget";
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string _target_): AForm("ShrubberyCreationForm", 25, 5) {
+ShrubberyCreationForm::ShrubberyCreationForm(std::string _target_): AForm("ShrubberyCreationForm", 145, 137) {
     std::cout << "ShrubberyCreationForm Parametrized Constructor Called..." << std::endl;
     this->target = _target_;
 }
