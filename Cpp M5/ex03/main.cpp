@@ -3,8 +3,9 @@
 
 int main()
 {
-    Intern internN01;
+    std::srand(std::time(NULL));
 
+    Intern internN01;
     AForm* PPF = internN01.makeForm("presidential pardon", "Boss");
     if (PPF)
         delete PPF;

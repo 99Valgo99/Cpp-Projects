@@ -37,32 +37,24 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
 
 /// Form Execution //
 void ShrubberyCreationForm::formExecution() const {
-    std::ofstream outfile;
 
-    outfile.open(this->getTargetName().append("_shrubbery").c_str(), std::ios::out);
+    std::ofstream outfile((this->getTargetName() + "_shrubbery").c_str());
+    
     if (!outfile) {
-        std::cerr << "Error: Failed To Open The File." << std::endl;
+        std::cerr << "Error: Failed To Open The File..." << std::endl;
         return ;
     }
-    outfile << "BureaucraticAsciiTree" << std::endl;
-    outfile << "---------------------" << std::endl;
-    outfile << "\nCompany/" << std::endl;
-    outfile << "├─ Bureaucratic Forms/" << std::endl;
-    outfile << "│  ├─ IDs" << std::endl;
-    outfile << "│  ├─ Dimplomas" << std::endl;
-    outfile << "├─ Dates/" << std::endl;
-    outfile << "│  ├─ Business Meetings" << std::endl;
-    outfile << "│  ├─ Interviews" << std::endl;
-    outfile << "├─ Private" << std::endl;
-    outfile << "├─ ManagerOnly" << std::endl;
-    outfile << "├─ EncryptedBackup" << std::endl;
-    outfile << "|\n|--- Empoloyees/" << std::endl;
-    outfile << "|    |-- Data" << std::endl;
-    outfile << "|    |-- IDs" << std::endl;
-    outfile << "|    |-- Certifications/" << std::endl;
-    outfile << "|       |- Birth" << std::endl;
-    outfile << "|       |- Assurance" << std::endl;
-    outfile << "|       |- Contracts" << std::endl;
+    outfile << "        *                 *        " << std::endl;
+    outfile << "       /_\\               /_\\       " << std::endl;
+    outfile << "      /_ _\\             /_ _\\      " << std::endl;
+    outfile << "     /_ _ _\\           /_ _ _\\     " << std::endl;
+    outfile << "    /_ _ _ _\\         /_ _ _ _\\    " << std::endl;
+    outfile << "   /_ _ _ _ _\\       /_ _ _ _ _\\   " << std::endl;
+    outfile << "  /_ _ _ _ _ _\\     /_ _ _ _ _ _\\  " << std::endl;
+    outfile << "       |||               |||       " << std::endl;
+    outfile << "       |||               |||       " << std::endl;
+    outfile << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+
     outfile.close();
-    std::cout << "Ascii Tree Written Successfully..." << std::endl;
+    std::cout << "Ascii Trees Written To " << this->getTargetName() << "_shrubbery" << std::endl;
 }

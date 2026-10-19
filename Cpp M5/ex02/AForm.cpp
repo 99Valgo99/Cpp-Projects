@@ -83,7 +83,7 @@ void AForm::execute(Bureaucrat const & executor) const {
     if (!this->getMarked())
         throw UnsignedForm();
     std::cout << "Form is Signed..." << std::endl;
-    if (executor.getGrade() > this->getGradeExec())
+    if (executor.getGrade() >= this->getGradeExec())
         throw GradeTooLowException();
     std::cout << "Form Can Be Executed..." << std::endl;
     this->formExecution();

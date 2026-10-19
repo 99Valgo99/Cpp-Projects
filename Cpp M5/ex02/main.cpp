@@ -12,6 +12,8 @@ data:
 
 int main()
 {
+    std::srand(std::time(NULL));
+
     Bureaucrat Buro("Buro", 1);
     PresidentialPardonForm PPF("Pardon");
     Buro.executeForm(PPF);

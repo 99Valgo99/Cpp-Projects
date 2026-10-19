@@ -2,6 +2,8 @@
 #define AFORM_HPP
 
 # include "Bureaucrat.hpp"
+#include <cstdlib>
+#include <ctime>
 
 # define TRUE 1
 # define FALSE 0
@@ -49,7 +51,8 @@ class AForm
     void execute(Bureaucrat const &executor) const;
 
     // Execution Tool //
-    virtual void formExecution() const = 0;
+    protected:
+        virtual void formExecution() const = 0;
 };
 
 std::ostream& operator<<(std::ostream &out, const AForm& input);
