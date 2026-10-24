@@ -2,6 +2,7 @@
 # define DATA_HPP
 
 # include <iostream>
+# include <string>
 
 struct Data {
     std::string data_1;
