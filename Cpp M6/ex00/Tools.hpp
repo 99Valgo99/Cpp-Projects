@@ -14,13 +14,13 @@
 int     variationsChecks(const std::string& lit);
 
 int     handle_pseudos(const std::string& lit);
-bool    int_handler(const std::string& lit, long& result);
+bool    int_handler(const std::string& lit, int& result);
 bool    char_handler(const std::string& lit, char& result);
 bool    float_handler(const std::string& lit, float& result);
 bool    double_handler(const std::string& lit, double& result);
 
 bool    outPut(char value);
-bool    outPut(long value);
+bool    outPut(int value);
 bool    outPut(float value);
 bool    outPut(double value);
 

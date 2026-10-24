@@ -35,7 +35,7 @@ void ScalarConverter::convert(const std::string& lit) {
         displayInfnan(pseudo_type);
     }
     else if (type == INT) {
-        long value;
+        int value;
         if (!int_handler(lit, value) || !outPut(value))
             return ;
     }

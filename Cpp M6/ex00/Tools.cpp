@@ -2,7 +2,7 @@
 
 int handle_pseudos(const std::string& lit) {
     if (!lit.compare("nan") || !lit.compare("nanf"))
-        return (NAN); 
+        return (NAN);
     else if (!lit.compare("inf") || !lit.compare("+inf")
     || !lit.compare("inff") || !lit.compare("+inff"))
         return (INF);
@@ -12,7 +12,7 @@ int handle_pseudos(const std::string& lit) {
 }
 
 int variationsChecks(const std::string& lit) {
-    
+
     int x = 0;
     int y = 0;
     int z = 0;
@@ -46,11 +46,11 @@ int variationsChecks(const std::string& lit) {
 }
 
 bool double_handler(const std::string& lit, double& result) {
-   
+
     errno = 0;
     char *endchar = 0;
 
-    double res = std::strtod(lit.c_str(), &endchar);    
+    double res = std::strtod(lit.c_str(), &endchar);
     if (*endchar != '\0') {
         std::cerr << "Unrecongnized Format, From Method Handler. (Double)" << std::endl;
         return false;
@@ -90,8 +90,8 @@ bool char_handler(const std::string& lit, char& result) {
     return true;
 }
 
-bool int_handler(const std::string& lit, long& result) {
-    
+bool int_handler(const std::string& lit, int& result) {
+
     errno = 0;
     char *endchar = 0;
 
@@ -109,8 +109,6 @@ bool int_handler(const std::string& lit, long& result) {
         std::cerr << "Value is Larger/Smaller to fit into a Int" << std::endl;
         return false;
     }
-    result = integer;
+    result = static_cast<int>(integer);
     return true;
 }
-
-

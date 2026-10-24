@@ -28,13 +28,13 @@ void checkDouble(double value) {
         std::cout << "double: " << std::fixed << std::setprecision(1) << value << std::endl;
 }
 
-bool outPut(long value) {
+bool outPut(int value) {
     if (value < 0 || value > 127 || !std::isprint(static_cast<int>(value)))
         std::cout << "char: " << (((value < 0) || (value > 127)) ? "impossible" : "Non displayable") << std::endl;
     else
         std::cout << "char: '" << static_cast<char>(value) << "'" << std::endl;
     std::cout << "int: " << static_cast<int>(value) << std::endl;
-    std::cout << "float: " << std::fixed << std::setprecision(1) 
+    std::cout << "float: " << std::fixed << std::setprecision(1)
         << static_cast<float>(value) << "f" << std::endl;
     std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(value) << std::endl;
     return true;
@@ -48,7 +48,7 @@ bool outPut(char value) {
         std::cout << "char: '" << static_cast<char>(value) << "'" << std::endl;
     std::cout << "int: " << static_cast<int>(value) << std::endl;
     std::cout << "float: " << std::fixed << std::setprecision(1)
-        << static_cast<float>(value) << "f" << std::endl;    
+        << static_cast<float>(value) << "f" << std::endl;
     std::cout << "double: " << std::fixed << std::setprecision(1)
         << static_cast<double>(value) << std::endl;
 
@@ -62,7 +62,11 @@ bool outPut(float value) {
     }
     else if (value < 0 || value > 127 || !std::isprint(static_cast<int>(value))) {
         std::cout << "char: " << (((value < 0) || (value > 127)) ? "impossible" : "Non displayable") << std::endl;
-        std::cout << "int: " << static_cast<int>(value) << std::endl;
+        if (static_cast<double>(value) > std::numeric_limits<int>::max()
+            || static_cast<double>(value) < std::numeric_limits<int>::min())
+            std::cout << "int: impossible" << std::endl;
+        else
+            std::cout << "int: " << static_cast<int>(value) << std::endl;
     } else {
         std::cout << "char: '" << static_cast<char>(value) << "'" << std::endl;
         std::cout << "int: " << static_cast<int>(value) << std::endl;
@@ -86,7 +90,11 @@ bool outPut(double value) {
     }
     else if (value < 0 || value > 127 || !std::isprint(static_cast<int>(value))) {
         std::cout << "char: " << (((value < 0) || (value > 127)) ? "impossible" : "Non displayable") << std::endl;
-        std::cout << "int: " << static_cast<int>(value) << std::endl;
+        if (value > std::numeric_limits<int>::max()
+            || value < std::numeric_limits<int>::min())
+            std::cout << "int: impossible" << std::endl;
+        else
+            std::cout << "int: " << static_cast<int>(value) << std::endl;
     } else {
         std::cout << "char: '" << static_cast<char>(value) << "'" << std::endl;
         std::cout << "int: " << static_cast<int>(value) << std::endl;
@@ -100,7 +108,7 @@ bool outPut(double value) {
     else if (value > std::numeric_limits<float>::max() || value < -std::numeric_limits<float>::max())
         std::cout << "float: impossible" << std::endl;
     else
-        std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" <<std::endl;     
+        std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" <<std::endl;
     checkDouble(value);
     return true;
 }
