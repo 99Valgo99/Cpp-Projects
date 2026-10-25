@@ -1,5 +1,3 @@
-#include "Array.hpp"
-
 template <class T> Array<T>::Array() : info(0), infosize(0) {
     std::cout << "Default Constructor Called..." << std::endl;
 }

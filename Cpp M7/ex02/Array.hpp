@@ -2,6 +2,7 @@
 # define ARRAY_HPP
 
 # include <iostream>
+# include <string>
 
 template <class T>
 class Array {

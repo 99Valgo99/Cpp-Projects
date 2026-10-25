@@ -2,17 +2,17 @@
 
 int main() {
     {
-        // Check Default Constructor/Desctructor
+        // check Default Constructor/Desctructor
         Array<int> a;
     }
     std::cout << std::endl;
     {
-        // Check Params Constructor/Destructor
+        // check Params Constructor/Destructor
         Array<int> a(4);
     }
     std::cout << std::endl;
     {
-        // Checking [] Operator for Writing/Reading
+        // checking [] Operator for Writing/Reading
         Array<int> a(3);
         for (unsigned int i = 0; i < a.size(); i++) {
             a[i] = i + 1;
@@ -22,7 +22,7 @@ int main() {
     }
     std::cout << std::endl;
     {
-        // Checking Copy-Constructor Deep copy
+        // checking Copy-Constructor Deep copy
         Array<int> a(3);
         for (unsigned int i = 0; i < a.size(); i++) {
             a[i] = i + 1;
@@ -33,11 +33,11 @@ int main() {
             std::cout << "Array (b): " << b[i] << std::endl;
         }
         std::cout << "Array (b) size: " << b.size() << std::endl; 
-        // Modification in Array (b)
+        // modification in Array (b)
         b[2] = 11;
         std::cout << "Array's (b)[2]: " << b[2] << std::endl;
         std::cout << "Array's (a)[2]: " << a[2] << std::endl;
-        // Triggering the exception
+        // triggering the exception
         try {
             std::cout << "Out of Bounds index [11] in (b): " << b[11] << std::endl;
         }
@@ -62,10 +62,34 @@ int main() {
     }
     std::cout << std::endl;
     {
-        // Testing Const-ness Of Operator method
+        // testing Const-ness Of Operator method
         const Array<int> c(1);
         std::cout << "Const array first element: " << c[0] << std::endl;
         // c[0] = 1; will result in Const Writing Error
+    }
+    std::cout << std::endl;
+    {
+        // complex type: std::string
+        Array<std::string> s(2);
+        std::cout << "Default string element: [" << s[0] << "]" << std::endl;
+        s[0] = "hello";
+        s[1] = "world";
+
+        Array<std::string> copy(s);
+        copy[0] = "changed";
+        std::cout << "s[0]: " << s[0] << " | copy[0]: " << copy[0] << std::endl;
+
+        Array<std::string> assigned;
+        assigned = s;
+        s[1] = "mutated";
+        std::cout << "s[1]: " << s[1] << " | assigned[1]: " << assigned[1] << std::endl;
+
+        try {
+            std::cout << s[2] << std::endl;
+        }
+        catch (std::exception& e) {
+            std::cout << e.what() << std::endl;
+        }
     }
     return 0;
 }

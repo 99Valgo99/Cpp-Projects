@@ -2,6 +2,7 @@
 # define WHATEVER_HPP
 
 # include <iostream>
+# include <string>
 
 template <typename T0> void swap(T0& x, T0& y) {
     T0 temp_z = y;
