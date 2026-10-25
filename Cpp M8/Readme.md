@@ -71,16 +71,4 @@ Two totally different implementations, exposed through one identical interface: 
 ``begin()`` gives us an iterator at the first element, ``end()`` gives us an iterator to one-past-the-last-element -- a sentinel, not a real element, so we never dereference it, only compare against it.
 
 This shared interface is exactly what lets a generic algortihm like ``std::find(first, last, value)`` work on a ``vector``, a ``list``, or amything else with ``begin()``/``end()`` -- it never needs to know which one it got.
-
-
-### Exercise I
-
-We will work on creating a function template that works with different **Containers** (List && Vectors), since both of these containers are equipped with **Iterators**, we can use that in our advantage to create a blueprint template function that works for all of them.
-
-The signature for this Template function named ``easyfind`` goes as such:
-
-```
-template <typename T> typename T::iterator easyfind(T& container, int integer) { }
-```
-
-Without ``typename`` before ``T::iterator``, the compiler would treat it as value by default (like looking for a static memeber or a function) rather than a type, since ``T`` is a template parameter, the compiler cannot know whether ``iterator`` is a type or value until instantiation, thus ``typename`` explicitly tells the compiler to treat it as a type.
+***
