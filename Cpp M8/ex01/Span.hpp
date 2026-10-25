@@ -19,8 +19,8 @@ class Span {
         Span& operator=(const Span& other);
         ~Span();
 
-        int shortestSpan();
-        int longestSpan();
+        long shortestSpan();
+        long longestSpan();
         void addNumber(int newNumber);
 
         unsigned int maxNumbersGetter() const;
